@@ -4,6 +4,6 @@ const API_URL = "http://localhost:3001/";
 
 socket = io(`${API_URL}`);
 console.log("Yooooo");
-socket.on("connection", () => console.log("connected"));
+socket.on("connection");
 
-socket.emit("chat message", { msg: "asdf" });
+// socket.emit("chat message", { msg: "asdf" });
