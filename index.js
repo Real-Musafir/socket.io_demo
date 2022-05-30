@@ -4,6 +4,7 @@ const server = require("http").Server(app);
 const io = require("socket.io")(server);
 
 const port = 3001;
+let channleName = "";
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -16,17 +17,17 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-  console.log("Is this post request");
-  console.log(req.body, "body find??");
+  channleName = req.body.matchId;
+  console.log(req.body.matchId, "body find??");
   res.send({ ok: "ok" });
 });
 
 io.on("connection", (socket) => {
   console.log("a user connected :D");
 
-  socket.on("chat message", (msg) => {
+  socket.on(`${channleName}`, (msg) => {
     console.log(msg);
-    io.emit("chat message", msg);
+    io.emit(`${channleName}`, msg);
   });
 });
 
