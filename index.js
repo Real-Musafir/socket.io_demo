@@ -1,9 +1,11 @@
 const express = require("express");
+require("dotenv").config();
 const app = express();
+app.set("port", process.env.PORT);
+
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
 
-const port = 3001;
 let channleName = "";
 
 app.use(express.urlencoded({ extended: true }));
@@ -31,6 +33,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(port, () => {
-  console.log(`Zoom Clone Api listening on localhost:3001`);
+server.listen(process.env.PORT || 3001, () => {
+  console.log(`Api listening on localhost:3001`);
 });
